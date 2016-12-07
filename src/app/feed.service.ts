@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import {Observable} from 'rxjs/Rx';
 import { Feed } from './model/feed';
+import { FeedEntry } from './model/feed-entry';
 import {AngularFire,AngularFireModule, FirebaseListObservable} from 'angularfire2';
 import { firebaseConfig } from '../environments/firebase.config';
 
@@ -16,7 +17,11 @@ export class FeedService {
   private db: IDBDatabase;
   
   constructor(af: AngularFire,private http: Http) {
-    this.items = af.database.list('/stream_2');
+    this.items = af.database.list('/stream_2', {
+      query: {
+        limitToLast: 15
+      }
+    });
     this.IndexDb = window.indexedDB;
     this.createDB();
     this.items.subscribe(this.onDataRecieved.bind(this));
@@ -39,11 +44,12 @@ export class FeedService {
       data.forEach(obj => {
         tbl.add(obj);
       });
+      console.log('add new ' + data.length + ' feeds');
     }
   }
 
   private onDataRecieved(data: any) {
-    var myFeed: any = data.map((obj) => {
+    var myFeed: any = data.map((obj : any) => {
       return {
         id: obj.$key,
         title: obj.title,
@@ -59,7 +65,18 @@ export class FeedService {
   }
 
   public getData(amount: number) {
-    return {};
+    return new Promise((resolve, reject) => {
+      var req:IDBOpenDBRequest;
+      req = this.IndexDb.open(this.dbName);
+      req.onsuccess = (e:any) => {
+        this.db = e.target.result;
+        var tbl:any = this.db.transaction('feeds', 'readonly').objectStore('feeds');
+        tbl.getAll(null, amount).onsuccess = (e:any) => {
+          var dataArr:Array<FeedEntry> = e.target.result;
+          resolve(dataArr);
+        };
+      };
+    });
   }
   // getFeedContent(url: string): Observable<Feed> {
   //   return this.http.get(this.rssToJsonServiceBaseUrl + url)

@@ -15,6 +15,6 @@ export class FeedCardComponent implements OnInit {
   }
 
   private openLinkInBrowser() {
-    window.open(this.feed.link);
+
   }
 }

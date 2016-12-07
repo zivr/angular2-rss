@@ -1,11 +1,10 @@
 export interface FeedEntry {
+  id: string,
   title: string,
-  link: string,
-  guid: string,
-  pubDate: Date,
-  categories: Array<string>,
+  url: string,
   author: string,
-  thumbnail: string,
-  description: string,
-  content: string
+  text: string,
+  published: Date,
+  country: string,
+  site: string
 }

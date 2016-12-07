@@ -11,7 +11,6 @@ import { FeedEntry } from '../model/feed-entry';
 
 export class FeedPageComponent implements OnInit {
 
-  private feedUrl: string = 'https%3A%2F%2Fwww.becompany.ch%2Fen%2Fblog%2Ffeed.xml';
   private feeds: Array<FeedEntry> = [];
 
   constructor(
@@ -20,7 +19,11 @@ export class FeedPageComponent implements OnInit {
 
 
   ngOnInit() {
-    this.feed.getData(300);
+    this.feed.getData(300).then((data: Array<FeedEntry>) => {
+      data.forEach((obj) => {
+        this.feeds.push(obj);
+      });
+    });
   }
 
 
