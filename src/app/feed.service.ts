@@ -35,7 +35,7 @@ export class FeedService {
     req = this.IndexDb.open(this.dbName);
     req.onsuccess = (e: any) => {
       this.db = e.target.result;
-      var tbl: IDBObjectStore = this.db.transaction(['feeds'],'readwrite').objectStore('feeds');
+      var tbl: IDBObjectStore = this.db.transaction('feeds','readwrite').objectStore('feeds');
       data.forEach(obj => {
         tbl.add(obj);
       });
