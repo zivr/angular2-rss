@@ -11,6 +11,8 @@ import { MdButtonModule } from '@angular2-material/button';
 import { MdIconModule, MdIconRegistry } from '@angular2-material/icon';
 
 import { AppComponent } from './app.component';
+import { FeedPageComponent } from './feed-page/feed-page.component';
+import { HomePageComponent } from './home-page/home-page.component';
 import { FeedCardComponent } from './feed-card/feed-card.component';
 import { FeedService } from './feed.service';
 import { StripHtmlTagsPipe } from './pipe/strip-html-tags.pipe';
@@ -22,6 +24,8 @@ import { ROUTES } from './app.routes';
 @NgModule({
   declarations: [
     AppComponent,
+    FeedPageComponent,
+    HomePageComponent,
     FeedCardComponent,
     StripHtmlTagsPipe,
     SpinnerComponent

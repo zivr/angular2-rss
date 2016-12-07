@@ -2,13 +2,11 @@
   <span>
     <a [routerLink]="'home'"> Home </a>&nbsp;
   </span>
-  <span> <a [routerLink]="'home'"> Feed </a> </span>
+  <span> <a [routerLink]="'feed'"> Feed </a> </span>
 
   <!-- This fills the remaining space of the current row -->
   <span class="fill-remaining-space"></span>
-
-  <span class="pointer-cursor"><md-icon (click)="refreshFeed()">refresh</md-icon></span>
 </md-toolbar>
-
-<app-feed-card *ngFor="let feed of feeds" [feed]="feed" ></app-feed-card>
-<app-spinner *ngIf="!feeds.length"></app-spinner>
+<main>
+  <router-outlet></router-outlet>
+</main>
