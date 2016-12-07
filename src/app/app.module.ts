@@ -3,7 +3,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
-
+import {AngularFireModule, FirebaseListObservable} from 'angularfire2';
+import { firebaseConfig } from '../environments/firebase.config';
 // Material design.
 import { MdCardModule } from '@angular2-material/card';
 import { MdToolbarModule } from '@angular2-material/toolbar';
@@ -38,7 +39,8 @@ import { ROUTES } from './app.routes';
     MdToolbarModule,
     MdButtonModule,
     MdIconModule,
-    RouterModule.forRoot(ROUTES, { useHash: false })
+    RouterModule.forRoot(ROUTES, { useHash: false }),
+    AngularFireModule.initializeApp(firebaseConfig),
   ],
   providers: [FeedService, MdIconRegistry],
   bootstrap: [AppComponent]
