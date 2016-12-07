@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { RouterModule, Routes } from '@angular/router';
 
 // Material design.
 import { MdCardModule } from '@angular2-material/card';
@@ -14,6 +15,9 @@ import { FeedCardComponent } from './feed-card/feed-card.component';
 import { FeedService } from './feed.service';
 import { StripHtmlTagsPipe } from './pipe/strip-html-tags.pipe';
 import { SpinnerComponent } from './spinner/spinner.component';
+
+import { ROUTES } from './app.routes';
+
 
 @NgModule({
   declarations: [
@@ -29,7 +33,8 @@ import { SpinnerComponent } from './spinner/spinner.component';
     MdCardModule,
     MdToolbarModule,
     MdButtonModule,
-    MdIconModule
+    MdIconModule,
+    RouterModule.forRoot(ROUTES, { useHash: false })
   ],
   providers: [FeedService, MdIconRegistry],
   bootstrap: [AppComponent]

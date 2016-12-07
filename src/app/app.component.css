@@ -1,7 +1,17 @@
 .center {
-  margin: auto;
+    margin: auto;
 }
 
 .pointer-cursor {
-  cursor: pointer;
+    cursor: pointer;
+}
+
+.fill-remaining-space {
+    flex: 1 1 auto;
+}
+a {
+    color: white;
+}
+a:link , a:visited , a:hover, a:active  {
+    text-decoration: none;
 }
