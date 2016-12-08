@@ -12,6 +12,8 @@ import { FeedEntry } from '../model/feed-entry';
 export class FeedPageComponent implements OnInit {
 
   private feeds: Array<FeedEntry> = [];
+  private savedData: Array<FeedEntry> = [];
+  private runningThread: any;
 
   constructor(
     private feed: FeedService
@@ -19,11 +21,20 @@ export class FeedPageComponent implements OnInit {
 
 
   ngOnInit() {
-    this.feed.getData(300).then((data: Array<FeedEntry>) => {
+    this.feed.syncData(30, (data: Array<FeedEntry>) => {
       data.forEach((obj) => {
-        this.feeds.push(obj);
+        this.savedData.push(obj);
       });
+      clearTimeout(this.runningThread);
+      this.runningThread = setTimeout(this.updateSavedData.bind(this), 1000);
     });
+  }
+
+  private updateSavedData(){
+    this.savedData.forEach((obj) => {
+      this.feeds.push(obj);
+    });
+    this.savedData.length = 0;
   }
 
 
